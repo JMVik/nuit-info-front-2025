@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+    container_name: nuitinfo-front-container
+    ports:
+      - "8080:80"
+    restart: always
