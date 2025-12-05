@@ -10,5 +10,9 @@ export const routes: Routes = [
     path: 'snake',
     title: 'NuitInfo - Snake',
     loadComponent: () => import('./linux/snake/snake.component').then(c => c.SnakeComponent)
-  }
+  },
+    {
+        path: 'planet',
+        loadComponent: () => import('./planete-component/planete-component.component').then(m => m.PlaneteComponent)
+    }
 ];
