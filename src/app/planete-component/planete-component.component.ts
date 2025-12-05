@@ -112,4 +112,14 @@ export class PlaneteComponent implements OnInit, OnDestroy {
   get backgroundSize(): string {
     return `${this.spriteSheetWidth}px ${this.spriteSheetHeight}px`;
   }
+
+   showPopup = true;   // la pop-up s’affiche au chargement
+
+  openPopup() {
+    this.showPopup = true;
+  }
+
+  closePopup() {
+    this.showPopup = false;
+  }
 }
