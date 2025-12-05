@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {GoofyQuizComponent} from './goofy-quiz-generic/goofy-quiz.component';
+import {Router} from '@angular/router';
+import {PlanetStateService} from '../services/planet-state.service';
 
 @Component({
   selector: 'app-goofy-quiz-list',
@@ -68,7 +70,17 @@ export class GoofyQuizListComponent {
     },
   ];
 
+  constructor(private router: Router, private planetStateService: PlanetStateService) {
+  }
+
   getQuizById(id: number) {
     return this.quizzes.find(q => q.id === id);
+  }
+
+  backToPlanet(){
+    this.planetStateService.increment(1);
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 2000);
   }
 }
