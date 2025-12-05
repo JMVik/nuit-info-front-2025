@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlanetStateService } from '../planet-state.service';
+import { PlanetStateService } from '../services/planet-state.service';
+import {Router} from '@angular/router';
 
 /*Déf d'une interface pour representer les établissements */
 interface School {
@@ -10,10 +11,10 @@ interface School {
   y: number;
   isConnected: boolean;
   img: string;
-  color: string; 
+  color: string;
 }
 
-// Déf d'un câble 
+// Déf d'un câble
 interface Link {
   x1: number;
   y1: number;
@@ -30,13 +31,11 @@ interface Link {
 
 
 export class ToursComponent {
-  // Crée un événement de sortie
-  @Output() close = new EventEmitter<void>();
 
   isGameFinished = false;
-  isNetworkConnected = false; 
-  isOptimizing = false;      
-  isMaxedOut = false;         
+  isNetworkConnected = false;
+  isOptimizing = false;
+  isMaxedOut = false;
 
   currentInfo = "Bienvenue ! Je t'expliquerai l'impact de tes choix ici.";
 
@@ -58,25 +57,28 @@ schools: School[] = [
   { id: 6, name: 'UFR math-info Unistra', x: 85, y: 30, isConnected: false, img: 'lycee.png', color: '#5b3ce7ff' }
 ];
 
-  links: Link[] = []; 
-  selectedSchool: School | null = null; 
+  links: Link[] = [];
+  selectedSchool: School | null = null;
 
   // Stats du NIRD
   co2Saved = 0;
   moneySaved = 0;
 
-  fermerPopup() {
-    this.close.emit(); // "Eh oh parent ! Ferme-moi !"
+  constructor(private planetState: PlanetStateService, private router: Router) {
   }
 
+  fermerPopup() {
+    this.planetState.increment(1);
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 2000);
+  }
 
   selectSchool(school: School) {
     if (this.isMaxedOut) {
-      this.planetState.increment(1); 
       return;
     }
     if (this.isNetworkConnected && !this.isOptimizing) {
-      this.planetState.increment(1); 
       return;
     }
 
@@ -90,10 +92,10 @@ schools: School[] = [
     } else {
 
      const linkAlreadyExists = this.links.some(link => {
-        const sens1 = (link.x1 === this.selectedSchool!.x && link.y1 === this.selectedSchool!.y && 
+        const sens1 = (link.x1 === this.selectedSchool!.x && link.y1 === this.selectedSchool!.y &&
                        link.x2 === school.x && link.y2 === school.y);
-        const sens2 = (link.x1 === school.x && link.y1 === school.y && 
-                       link.x2 === this.selectedSchool!.x && link.y2 === this.selectedSchool!.y);     
+        const sens2 = (link.x1 === school.x && link.y1 === school.y &&
+                       link.x2 === this.selectedSchool!.x && link.y2 === this.selectedSchool!.y);
         return sens1 || sens2;
       });
 
@@ -102,7 +104,7 @@ schools: School[] = [
         this.selectedSchool = null;
         return;
       }
-      
+
       // ------------------------------------
 
       this.createLink(this.selectedSchool, school);
@@ -125,7 +127,7 @@ schools: School[] = [
     const randomIndex = Math.floor(Math.random() * this.nirdFacts.length);
     this.currentInfo = this.nirdFacts[randomIndex];
 
-    //Caluler les gains 
+    //Caluler les gains
     this.updateStats();
 
     this.checkState();
@@ -135,7 +137,7 @@ schools: School[] = [
   updateStats() {
     // Chaque connexion rapporte des points NIRD
     this.co2Saved += 150; // kg CO2
-    this.moneySaved += 2000; // Euros 
+    this.moneySaved += 2000; // Euros
   }
 
   checkState() {
@@ -145,16 +147,20 @@ schools: School[] = [
     if (allConnected && minLinks && !this.isNetworkConnected) {
       this.isNetworkConnected = true;
     }
-    
-    if (this.links.length >= 15) { 
+
+    if (this.links.length >= 15) {
         this.isMaxedOut = true;
-        this.isNetworkConnected = true; 
-        this.isOptimizing = false;      
+        this.isNetworkConnected = true;
+        this.isOptimizing = false;
     }
   }
 
   // Appelée par le bouton "optimiser"
   startOptimization() {
     this.isOptimizing = true;
+    this.planetState.increment(1);
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 2000);
   }
 }

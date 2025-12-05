@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PlanetStateService } from '../planet-state.service';
+import { PlanetStateService } from "../services/planet-state.service";
+import { Router } from '@angular/router';
 
 interface ZoneDeclencheur {
   id: string;
@@ -52,7 +53,7 @@ export class PlaneteComponent implements OnInit, OnDestroy {
 
   private stateSub?: Subscription;
 
-  constructor(private planetState: PlanetStateService) {}
+  constructor(private planetState: PlanetStateService, private router: Router) {}
 
   ngOnInit(): void {
     // à l'init, on s'abonne à l'état global pour afficher le bon sprite
@@ -70,56 +71,30 @@ export class PlaneteComponent implements OnInit, OnDestroy {
         case 2: this.currentSpriteIndex = 2; break;
         case 3: this.currentSpriteIndex = 3; break;
         default: this.currentSpriteIndex = 0; break;
-      } 
+      }
     });
-    
+
   }
 
   ngOnDestroy(): void {
     this.stateSub?.unsubscribe();
   }
 
-  /**
-   * Appelé quand la souris bouge dans le conteneur.
-   */
-  onMouseMove(event: MouseEvent, container: HTMLElement): void {
-    const rect = container.getBoundingClientRect();
-    const x = event.clientX - rect.left; // coordonnée X relative au conteneur
-    const y = event.clientY - rect.top;  // coordonnée Y relative au conteneur
-
-    this.updateStateFromPosition(x, y);
-  }
-
   onButtonClick(id: number) {
     const currentSpiteIndex = this.planetState.value;
     console.log("Index actuel :", currentSpiteIndex);
-
-  // Exemple :
-  // this.planetState.increment();
-  // OU : this.planetState.setState(id);
-
-  // Je peux t'ajouter la logique que tu veux ici
-  }
-
-
-  /**
-   * Met à jour l'état global de la planète en fonction de la zone dans laquelle on se trouve.
-   * (Et le sprite affiché suit automatiquement via l'abonnement dans ngOnInit)
-   */
-  private updateStateFromPosition(x: number, y: number): void {
-    const zone = this.zonesDeclencheur.find(z =>
-      x >= z.x &&
-      x <= z.x + z.width &&
-      y >= z.y &&
-      y <= z.y + z.height
-    );
-
-    if (zone) {
-      // on met à jour l'état global = index de la zone
-      this.planetState.setState(zone.spriteIndex);
-    } else {
-      // si aucune zone touchée → on remet l'état à 0 (idle)
-      this.planetState.setState(0);
+    switch (currentSpiteIndex) {
+      case 0:
+        this.router.navigate(['/tours']);
+        break;
+      case 1:
+        this.router.navigate(['/linux']);
+        break;
+      case 2:
+        this.router.navigate(['/quizz']);
+        break;
+      default:
+        this.router.navigate(['/']);
     }
   }
 

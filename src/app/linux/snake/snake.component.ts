@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, ElementRef, HostListener, Input, OnDestroy, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {PlanetStateService} from '../../services/planet-state.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-snake',
@@ -30,7 +32,7 @@ export class SnakeComponent implements AfterViewInit, OnDestroy {
 
   isGameInitialized: boolean = false;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private planetStateService: PlanetStateService, private router: Router) {}
 
   @HostListener('window:resize')
   onResize() {
@@ -188,7 +190,10 @@ export class SnakeComponent implements AfterViewInit, OnDestroy {
 
       if (this.letters.length === 0) {
         this.stopGameLoop();
-        // victoire
+        this.planetStateService.increment(1);
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 2000);
       }
 
     } else {
