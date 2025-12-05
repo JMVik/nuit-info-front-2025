@@ -21,4 +21,63 @@
     <button class="btn-3" (click)="onButtonClick(3)"><img src="/assets/sprites/pin.png"></button>
 
   </div>
+
+  <div
+  #container
+  class="planete-container"
+  (mousemove)="onMouseMove($event, container)"
+>
+  <!-- SPRITE (une seule image, on “fenêtre” dedans) -->
+  <div
+    class="sprite"
+    [ngStyle]="{
+      'background-image': 'url(' + spriteUrl + ')',
+      'background-position': '-' + (currentFrame.x * 2.5) + 'px -' + (currentFrame.y * 2.5) + 'px',
+      'background-size': (spriteSheetWidth * 2.5) + 'px ' + (spriteSheetHeight * 2.5) + 'px',
+      'width.px': currentFrame.width * 2.5,
+      'height.px': currentFrame.height * 2.5
+    }"
+  >
+    <button class="btn-1" (click)="onButtonClick(1)"><img src="/assets/sprites/pin.png"></button>
+    <button class="btn-2" (click)="onButtonClick(2)"><img src="/assets/sprites/pin.png"></button>
+    <button class="btn-3" (click)="onButtonClick(3)"><img src="/assets/sprites/pin.png"></button>
+  </div>
+</div>
+
+<!-- POP-UP GRANDE ET STYLÉE -->
+<div class="popup-backdrop" *ngIf="showPopup">
+  <div class="popup-window">
+    <button class="popup-close" (click)="closePopup()">✕</button>
+
+    <!-- Header avec logo + titre -->
+    <div class="popup-header">
+      <img
+        class="popup-icon"
+        src="/assets/sprites/logo.png"
+        alt="Planète"
+        
+      />
+    
+    </div>
+
+    <!-- Corps du texte aéré -->
+    <div class="popup-body">
+      <p>
+
+        À l’heure où la fin du support de Windows 10 nous rappelle notre dépendance technologique et nous oblige à faire des choix, un collectif enseignant issu de la forge des communs numériques éducatifs invite les établissements scolaires et les collectivités qui les accompagnent à s’engager progressivement vers un Numérique qui soit davantage Inclusif, Responsable et Durable, en rejoignant la « démarche NIRD  ».
+        Ce site a pour but de vous accompagner dans la découverte des démarches entreprise dans le cadre de la NIRD à travers une expérience ludique et interactive.
+      </p>
+
+      <p>
+        Sur notre belle planète numérique, chaque action compte ! En explorant les différents environnements, vous découvrirez comment vos choix influencent la santé de notre planète digitale. Préparez-vous à relever des défis, à prendre des décisions éclairées et à voir l'impact de vos actions sur l'écosystème numérique.
+      </p>
+
+      <p>
+        C'est parti !
+      </p>
+    </div>
+  </div>
+</div>
+
+
 </div>
