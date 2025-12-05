@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoofyQuizComponent } from './goofy-quiz/goofy-quiz.component';
+import { CommonModule } from '@angular/common';
+import { ToursComponent } from './tours/tours.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, GoofyQuizComponent],
+  imports: [RouterOutlet, CommonModule, GoofyQuizComponent, ToursComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -70,5 +71,14 @@ export class AppComponent {
 
   getQuizById(id: number) {
     return this.quizzes.find(q => q.id === id);
+  }
+  isPopupVisible = false;
+
+  openTours() {
+    this.isPopupVisible = true;
+  }
+
+  closeTours() {
+    this.isPopupVisible = false;
   }
 }

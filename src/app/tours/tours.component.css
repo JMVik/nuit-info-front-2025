@@ -1,0 +1,268 @@
+:host { /*la taille du compoisant*/
+  display: block;
+  width: 80vw; 
+  height: 95vh; 
+}
+
+.popup-box {
+  width: 100%;
+  height: 100%;
+  background: rgb(187, 235, 243); 
+  border-radius: 20px; 
+  padding: 40px; 
+  
+  border: 5px solid #333; /* un gros bord noir */
+  box-shadow: 13px 13px 8px rgba(0,0,0,0.2); /* Ombre */
+  
+  overflow-y: auto; /* Ajout d'une barre de défil si txt dépasse */
+  position: relative; /* placement le bouton fermer */
+  box-sizing: border-box; /* paddinfg*/
+}
+
+/* Bouton fermer à droit en haut  */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ff4757;
+  color: white;
+  border: 3px solid #333;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.close-btn:hover {
+  transform: scale(1.1); /* effet en survolant le bouton fermer */
+}
+
+/* La zone de jeu */
+.game-board {
+  position: relative;
+  width: 47%;
+  height: 540px; 
+  background-color: rgba(202, 239, 246, 0.856);  
+  border: 3px dashed #92bad5;
+  border-radius: 10px;
+  
+  margin: 20px auto;
+  
+  background-image: url('/assets/mutualisation/carte-france.jpg'); 
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+}
+
+.connections-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Les node etablissement*/
+.school-node {
+  width: 1rem; 
+  height: 1rem;
+  position: absolute;
+  transform: translate(-50%, -50%); 
+  
+  cursor: pointer;
+  z-index: 10;
+  overflow: visible; 
+}
+
+.school-node:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* L'icône de l"établissemnt */
+.icon {
+  background: white;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #34495e;
+  box-shadow: 4px 4px 1px #34495e; 
+  overflow: hidden; 
+}
+
+.school-img {
+  width: 80%; /* Laisse un peu de marge blanche autour (ou 100% pour remplir) */
+  height: 80%;
+  object-fit: contain; /* Garde les proportions de l'image */
+}
+
+/* État sélectionné  */
+.selected .icon {
+  background-color: #f1c40f;
+  animation: bounce 0.5s infinite alternate;
+}
+
+/* État connecté */
+.connected .icon {
+  border-color: #27ae60; 
+}
+
+.name {
+  position: absolute;
+  top: 2rem; 
+  left: 50%;
+  white-space: nowrap; 
+  background: white;
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.5rem;
+  border: 1px solid #333;
+  margin-top: 3px;
+  transform: translateX(-50%);
+  pointer-events: none; 
+}
+
+/* les stat en panel*/
+.stats-panel {
+  margin-top: 20px;
+  padding: 15px;
+  background: #3b5b7a;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.stat-item {
+  font-size: 1.3rem;
+}
+
+/* L'écran qui recouvre tout (fond sombre) */
+.victory-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(44, 62, 80, 0.9); /* Fond bleu nuit très opaque */
+  z-index: 100; /* Au-dessus de tout le reste */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px; /* Pour suivre les bords de ta popup */
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* La boîte de message */
+.victory-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border: 6px solid #f1c40f; /* Bordure dorée */
+  box-shadow: 0 0 30px rgba(241, 196, 15, 0.5); /* Halo doré */
+  transform: scale(0.8);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.victory-box h1 {
+  font-size: 3rem;
+  color: #2c3e50;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+}
+
+.victory-box p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 30px;
+}
+
+.final-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #27ae60;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-restart {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 4px solid #c0392b;
+  transition: transform 0.2s;
+}
+
+.btn-restart:hover {
+  transform: scale(1.05);
+  background: #ff5e4d;
+}
+
+.btn-optimize {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #219150;
+  animation: pulseBtn 2s infinite;
+}
+
+.btn-optimize:hover {
+  transform: scale(1.05);
+}
+
+.suggestion {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  to { transform: scale(1); }
+}
+
+@keyframes pulseBtn {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

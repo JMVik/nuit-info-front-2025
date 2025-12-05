@@ -1,0 +1,52 @@
+/* Le conteneur de la planète prend tout l'écran et reste fixe derrière */
+.planet-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Très important : met la planète derrière tout le reste */
+  background-color: #bbedf3; /* Couleur de fond de sécurité si la 3D charge pas vite */
+}
+
+/* L'interface utilisateur */
+.ui-container {
+  position: relative; /* Pour être au-dessus du z-index -1 */
+  z-index: 1;
+  padding: 20px;
+  pointer-events: none; /* Astuce : permet de cliquer sur la planète à travers le vide */
+}
+
+/* On réactive les clics sur les boutons */
+button {
+  pointer-events: auto;
+}
+
+/* Style rapide pour ton bouton principal */
+.btn-main {
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #1a252f;
+  transition: transform 0.1s;
+}
+
+.btn-main:active {
+  transform: translateY(5px);
+  box-shadow: none;
+}
+
+/* Tes styles pour .overlay (la popup) restent les mêmes que ceux qu'on a faits avant */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000; /* Tout en haut */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

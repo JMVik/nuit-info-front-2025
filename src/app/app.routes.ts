@@ -16,3 +16,7 @@ export const routes: Routes = [
         loadComponent: () => import('./planete-component/planete-component.component').then(m => m.PlaneteComponent)
     }
 ];
+
+export const routes: Routes = [
+];
+
