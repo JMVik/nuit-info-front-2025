@@ -1,0 +1,17 @@
+<div class="quiz-container">
+  <div class="left-panel">
+    <h3>Quiz #{{ idQuiz }}</h3>
+    <h3>Choisis une couleur 👇</h3>
+    <input type="color" [value]="selectedColor" (input)="onColorChange($event)" />
+    <p class="letter">Lettre générée : <strong>{{ generatedLetter }}</strong></p>
+    <button (click)="validateAnswer()">Valider</button>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+
+  <div class="right-panel">
+    <h2>{{ question }}</h2>
+    <ul>
+      <li *ngFor="let key of ['A','B','C','D']">{{ key }} — {{ answers[key] }}</li>
+    </ul>
+  </div>
+</div>

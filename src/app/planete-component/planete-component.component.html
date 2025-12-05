@@ -1,0 +1,23 @@
+<div
+  #container
+  class="planete-container"
+>
+  <!-- SPRITE (une seule image, on “fenêtre” dedans) -->
+  <div
+    class="sprite"
+    [ngStyle]="{
+      'background-image': 'url(' + spriteUrl + ')',
+      'background-position': '-' + (currentFrame.x * 2.5) + 'px -' + (currentFrame.y * 2.5) + 'px',
+      'background-size': (spriteSheetWidth * 2.5) + 'px ' + (spriteSheetHeight * 2.5) + 'px',
+      'width.px': currentFrame.width * 2.5,
+      'height.px': currentFrame.height * 2.5
+  }"
+
+  >
+
+    <button class="btn-1" (click)="onButtonClick(1)"><img src="/assets/sprites/pin.png"></button>
+    <button class="btn-2" (click)="onButtonClick(2)"><img src="/assets/sprites/pin.png"></button>
+    <button class="btn-3" (click)="onButtonClick(3)"><img src="/assets/sprites/pin.png"></button>
+
+  </div>
+</div>

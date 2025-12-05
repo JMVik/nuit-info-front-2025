@@ -1,12 +1,12 @@
 <div class="popup-box">
-  
+
   <button class="close-btn" (click)="fermerPopup()">X</button>
 
   <div class="header-section">
-      
+
       <div class="mentor-wrapper">
           <div class="mentor-avatar">
-          <img [src]="'assets/mutualisation/chapeau.jpeg' + school.img" alt="chapeau" class="mentor-avatar">
+          <img [src]="'assets/mutualisation/chapeau.jpeg'" alt="chapeau" class="mentor-avatar">
           </div>
           <div class="speech-bubble">
               {{ currentInfo }}
@@ -21,35 +21,35 @@
   </div>
   <div class="game-board">
     <svg class="connections-layer">
-      <line *ngFor="let link of links" 
-            [attr.x1]="link.x1 + '%'" 
-            [attr.y1]="link.y1 + '%'" 
-            [attr.x2]="link.x2 + '%'" 
-            [attr.y2]="link.y2 + '%'" 
-            stroke="#27ae60" 
-            stroke-width="4" 
-            stroke-dasharray="5,5" /> 
+      <line *ngFor="let link of links"
+            [attr.x1]="link.x1 + '%'"
+            [attr.y1]="link.y1 + '%'"
+            [attr.x2]="link.x2 + '%'"
+            [attr.y2]="link.y2 + '%'"
+            stroke="#27ae60"
+            stroke-width="4"
+            stroke-dasharray="5,5" />
     </svg>
 
-    <div *ngFor="let school of schools" 
+    <div *ngFor="let school of schools"
          class="school-node"
          [style.left.%]="school.x"
          [style.top.%]="school.y"
          [class.selected]="selectedSchool === school"
          [class.connected]="school.isConnected"
          (click)="selectSchool(school)">
-         
+
         <div class="icon" [style.borderColor]="school.color">
           <img [src]="'assets/mutualisation/' + school.img" alt="batiment" class="school-img">
         </div>
       <span class="name">{{ school.name }}</span>
-      
+
     </div>
   </div>
-  
+
   <div class="victory-overlay" *ngIf="isNetworkConnected && (!isOptimizing || isMaxedOut)">
     <div class="victory-box">
-      
+
       <div *ngIf="isMaxedOut">
           <h1>🌟 INCROYABLE ! 🌟</h1>
           <p>Votre réseau est ultra-résilient et optimisé au maximum !</p>
@@ -58,7 +58,7 @@
       <div *ngIf="!isMaxedOut">
           <h1>🏆 RÉSEAU CONNECTÉ !</h1>
           <p>Bravo ! En reliant ces établissements, vous avez créé un <strong>Cloud Éducatif Local</strong>.</p>
-          
+
           <div class="edu-summary" style="text-align: left; background: #f9f9f9; padding: 10px; margin: 10px 0; border-radius: 8px;">
             <p style="margin-bottom:5px;"><strong>Pourquoi c'est NIRD ?</strong></p>
             <ul style="margin: 0; padding-left: 20px;">
