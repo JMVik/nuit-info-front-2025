@@ -132,18 +132,23 @@
 /* La zone de jeu */
 .game-board {
   position: relative;
-  width: 47%;
-  height: 540px; 
-  background-color: rgba(202, 239, 246, 0.856);  
-  border: 3px dashed #92bad5;
-  border-radius: 10px;
+  
+  width: 60%; 
+  max-width: 600px; 
+  
+  aspect-ratio: 800 / 750; 
+  
   
   margin: 20px auto;
   
   background-image: url('/assets/mutualisation/carte-france.jpg'); 
-  background-size: contain; 
+  
+  background-size: cover; 
   background-repeat: no-repeat; 
   background-position: center; 
+  
+  border: 3px dashed #92bad5;
+  border-radius: 10px;
 }
 
 .connections-layer {
