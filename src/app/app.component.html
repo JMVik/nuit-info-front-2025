@@ -14,4 +14,28 @@
   [validAnswer]="selectedQuiz.validAnswer"
 ></app-goofy-quiz>
 
+<app-goofy-quiz
+  *ngIf="getQuizById(3) as selectedQuiz"
+  [idQuiz]="selectedQuiz.id"
+  [question]="selectedQuiz.question"
+  [answers]="selectedQuiz.answers"
+  [validAnswer]="selectedQuiz.validAnswer"
+></app-goofy-quiz>
+
+<app-goofy-quiz
+  *ngIf="getQuizById(4) as selectedQuiz"
+  [idQuiz]="selectedQuiz.id"
+  [question]="selectedQuiz.question"
+  [answers]="selectedQuiz.answers"
+  [validAnswer]="selectedQuiz.validAnswer"
+></app-goofy-quiz>
+
+<app-goofy-quiz
+  *ngIf="getQuizById(5) as selectedQuiz"
+  [idQuiz]="selectedQuiz.id"
+  [question]="selectedQuiz.question"
+  [answers]="selectedQuiz.answers"
+  [validAnswer]="selectedQuiz.validAnswer"
+></app-goofy-quiz>
+
 <router-outlet />
