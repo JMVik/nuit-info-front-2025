@@ -1,7 +1,13 @@
 :host { /*la taille du compoisant*/
+
   display: block;
-  width: 80vw; 
-  height: 95vh; 
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw; 
+  height: 100vh; 
+  z-index: 2000; 
+  background: white; 
 }
 
 .popup-box {
