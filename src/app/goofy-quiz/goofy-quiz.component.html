@@ -1,6 +1,6 @@
 <div class="quiz-container">
   <div class="left-panel">
-    <h3>Quiz #{{ idQuiz }}</h3> <!-- affichage de l'id -->
+    <h3>Quiz #{{ idQuiz }}</h3>
     <h3>Choisis une couleur 👇</h3>
     <input type="color" [value]="selectedColor" (input)="onColorChange($event)" />
     <p class="letter">Lettre générée : <strong>{{ generatedLetter }}</strong></p>
