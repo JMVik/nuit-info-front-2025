@@ -1,0 +1,33 @@
+<div class="game-container" [class.in-modal]="displayInModal" #gameContainerRef>
+  <div class="header" #headerRef>
+    <h2 class="score-display">Score: {{ score }}</h2>
+    <div class="message">{{ letters.length > 0 ? 'Mangez les lettres pour finir ce défi !' : 'VICTOIRE !' }}</div>
+  </div>
+
+  <div class="grid"
+       [style.width.px]="gridPixelSize"
+       [style.height.px]="gridPixelSize"
+       [style.grid-template-columns]="'repeat(' + GRID_SIZE + ', 1fr)'">
+
+    <ng-container *ngFor="let _ of [].constructor(GRID_SIZE); let y = index">
+      <div *ngFor="let _ of [].constructor(GRID_SIZE); let x = index" class="cell">
+        <div *ngIf="isSnake(x, y)" class="snake"></div>
+        <ng-container *ngIf="getLetterAt(x, y) as letter">
+          <div *ngIf="letter.trim() !== ''" class="letter-food">{{ letter }}</div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+
+  <div *ngIf="isGameOver" class="game-over-message">
+    <h1>GAME OVER!</h1>
+    <p>Votre score final est de {{ score }}.</p>
+    <button (click)="startGame()">Rejouer</button>
+  </div>
+
+  <div *ngIf="letters.length === 0 && !isGameOver && isGameInitialized" class="game-over-message victory-message">
+    <h1>VICTOIRE !</h1>
+    <p>Toutes les lettres ont été mangées (Score: {{ score }}).</p>
+    <button (click)="startGame()">Rejouer le texte</button>
+  </div>
+</div>

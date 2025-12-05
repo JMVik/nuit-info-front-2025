@@ -1,0 +1,24 @@
+<div class="background">
+
+  <div class="content">
+    <button (click)="openSnake = true">
+      <img src="/assets/img/snake-logo.png" alt="Icône d'application Snake">
+    </button>
+  </div>
+
+  <div class="modal-overlay">
+    <div class="modal-header">
+      <h3>Qu'est ce que Linux ?</h3>
+    </div>
+    <div class="modal-content">
+      <p *ngIf="!openSnake">
+        {{textForSnake}}
+      </p>
+      <app-snake *ngIf="openSnake"
+        [textToEat]="textForSnake"
+        [displayInModal]="true">
+      </app-snake>
+
+    </div>
+  </div>
+</div>
