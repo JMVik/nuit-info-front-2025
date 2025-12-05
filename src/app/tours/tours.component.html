@@ -1,9 +1,24 @@
 <div class="popup-box">
+  
   <button class="close-btn" (click)="fermerPopup()">X</button>
 
-  <h2>Réseau de Mutualisation</h2>
-  <p class="instruction">Clique sur deux établissements pour les relier et partager les ressources !</p>
+  <div class="header-section">
+      
+      <div class="mentor-wrapper">
+          <div class="mentor-avatar">
+          <img [src]="'assets/mutualisation/chapeau.jpeg' + school.img" alt="chapeau" class="mentor-avatar">
+          </div>
+          <div class="speech-bubble">
+              {{ currentInfo }}
+          </div>
+      </div>
 
+      <div class="titles">
+          <h2>Réseau de Mutualisation</h2>
+          <p class="instruction">Clique sur deux établissements pour les relier !</p>
+      </div>
+
+  </div>
   <div class="game-board">
     <svg class="connections-layer">
       <line *ngFor="let link of links" 
@@ -13,7 +28,8 @@
             [attr.y2]="link.y2 + '%'" 
             stroke="#27ae60" 
             stroke-width="4" 
-            stroke-dasharray="5,5" /> </svg>
+            stroke-dasharray="5,5" /> 
+    </svg>
 
     <div *ngFor="let school of schools" 
          class="school-node"
@@ -22,19 +38,57 @@
          [class.selected]="selectedSchool === school"
          [class.connected]="school.isConnected"
          (click)="selectSchool(school)">
+         
         <div class="icon" [style.borderColor]="school.color">
           <img [src]="'assets/mutualisation/' + school.img" alt="batiment" class="school-img">
-      </div>
+        </div>
       <span class="name">{{ school.name }}</span>
       
     </div>
-
   </div>
+  
+  <div class="victory-overlay" *ngIf="isNetworkConnected && (!isOptimizing || isMaxedOut)">
+    <div class="victory-box">
+      
+      <div *ngIf="isMaxedOut">
+          <h1>🌟 INCROYABLE ! 🌟</h1>
+          <p>Votre réseau est ultra-résilient et optimisé au maximum !</p>
+      </div>
 
+      <div *ngIf="!isMaxedOut">
+          <h1>🏆 RÉSEAU CONNECTÉ !</h1>
+          <p>Bravo ! En reliant ces établissements, vous avez créé un <strong>Cloud Éducatif Local</strong>.</p>
+          
+          <div class="edu-summary" style="text-align: left; background: #f9f9f9; padding: 10px; margin: 10px 0; border-radius: 8px;">
+            <p style="margin-bottom:5px;"><strong>Pourquoi c'est NIRD ?</strong></p>
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>Sobriété : On achète moins de serveurs.</li>
+                <li>Indépendance : Les données restent locales.</li>
+            </ul>
+        </div>
+      </div>
+
+      <div class="final-stats">
+         <span>🌱 {{ co2Saved }} kg CO2</span>
+         <span>💰 {{ moneySaved }} €</span>
+      </div>
+
+      <div class="actions">
+          <button class="btn-optimize" *ngIf="!isMaxedOut" (click)="startOptimization()">
+              🚀 Optimiser encore (+ de gains)
+          </button>
+
+          <button class="btn-restart" (click)="fermerPopup()">
+              {{ isMaxedOut ? 'Mission Terminée' : 'Ça me suffit, terminer' }}
+          </button>
+      </div>
+
+    </div>
+  </div>
 
   <div class="stats-panel" *ngIf="links.length > 0">
     <div class="stat-item">
-    <strong>{{ co2Saved }} kg</strong> de CO2 évité
+      <strong>{{ co2Saved }} kg</strong> de CO2 évité
     </div>
     <div class="stat-item">
       <strong>{{ moneySaved }} €</strong> économisés
@@ -43,37 +97,4 @@
      Bravo ! Territoire 100% NIRD !
     </div>
   </div>
-
-
-  <div class="victory-overlay" *ngIf="isNetworkConnected && (!isOptimizing || isMaxedOut)">
-  <div class="victory-box">
-    
-    <div *ngIf="isMaxedOut">
-        <h1>🌟 INCROYABLE ! 🌟</h1>
-        <p>Votre réseau est ultra-résilient et optimisé au maximum !</p>
-    </div>
-
-    <div *ngIf="!isMaxedOut">
-        <h1>🏆 RÉSEAU CONNECTÉ !</h1>
-        <p>Bravo, tous les établissements sont reliés.</p>
-        <p class="suggestion">💡 Astuce : Créer plus de liens renforce le réseau et augmente les économies.</p>
-    </div>
-
-    <div class="final-stats">
-       <span>🌱 {{ co2Saved }} kg CO2</span>
-       <span>💰 {{ moneySaved }} €</span>
-    </div>
-
-    <div class="actions">
-        <button class="btn-optimize" *ngIf="!isMaxedOut" (click)="startOptimization()">
-            🚀 Optimiser encore (+ de gains)
-        </button>
-
-        <button class="btn-restart" (click)="fermerPopup()">
-            {{ isMaxedOut ? 'Mission Terminée' : 'Ça me suffit, terminer' }}
-        </button>
-    </div>
-
-  </div>
-</div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PlanetStateService } from '../planet-state.service';
 
 /*Déf d'une interface pour representer les établissements */
 interface School {
@@ -26,14 +27,26 @@ interface Link {
   templateUrl: './tours.component.html',
   styleUrl: './tours.component.css'
 })
+
+
 export class ToursComponent {
   // Crée un événement de sortie
   @Output() close = new EventEmitter<void>();
 
   isGameFinished = false;
-  isNetworkConnected = false; // Est-ce que tout le monde est relié ?
-  isOptimizing = false;       // Est-ce qu'on est en phase bonus ?
-  isMaxedOut = false;         // Est-ce qu'on a atteint le max possible ?
+  isNetworkConnected = false; 
+  isOptimizing = false;      
+  isMaxedOut = false;         
+
+  currentInfo = "Bienvenue ! Je t'expliquerai l'impact de tes choix ici.";
+
+  nirdFacts = [
+    "Mutualiser permet d'acheter moins de serveurs physiques.",
+    "Moins de machines = moins de consommation électrique !",
+    "L'union fait la force face aux pannes matérielles.",
+    "On réduit la dépendance aux GAFAM en hébergeant localement.",
+    "Partager les ressources allonge la durée de vie du matériel.",
+    "La sauvegarde croisée sécurise les données scolaires."];
 
   // Configuration des écoles (positions fixes pour le dessin)
 schools: School[] = [
@@ -58,8 +71,14 @@ schools: School[] = [
 
 
   selectSchool(school: School) {
-    if (this.isMaxedOut) return;
-    if (this.isNetworkConnected && !this.isOptimizing) return;
+    if (this.isMaxedOut) {
+      this.planetState.increment(1); 
+      return;
+    }
+    if (this.isNetworkConnected && !this.isOptimizing) {
+      this.planetState.increment(1); 
+      return;
+    }
 
     if (this.selectedSchool === school) {
       this.selectedSchool = null;
@@ -103,6 +122,9 @@ schools: School[] = [
     start.isConnected = true;
     end.isConnected = true;
 
+    const randomIndex = Math.floor(Math.random() * this.nirdFacts.length);
+    this.currentInfo = this.nirdFacts[randomIndex];
+
     //Caluler les gains 
     this.updateStats();
 
@@ -113,18 +135,7 @@ schools: School[] = [
   updateStats() {
     // Chaque connexion rapporte des points NIRD
     this.co2Saved += 150; // kg CO2
-    this.moneySaved += 2000; // Euros d'argent public
-  }
-
-  checkVictory() {
-    const allConnected = this.schools.every(school => school.isConnected);
-    
-    // Pour verifier la connexité, (N-1 liens)
-    const enoughLinks = this.links.length >= this.schools.length - 1;
-
-    if (allConnected && enoughLinks) {
-      this.isGameFinished = true;
-    }
+    this.moneySaved += 2000; // Euros 
   }
 
   checkState() {
@@ -142,7 +153,7 @@ schools: School[] = [
     }
   }
 
-  // APPELÉE PAR LE BOUTON "OPTIMISER"
+  // Appelée par le bouton "optimiser"
   startOptimization() {
     this.isOptimizing = true;
   }
