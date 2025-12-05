@@ -76,7 +76,7 @@ schools: School[] = [
 
   selectSchool(school: School) {
     if (this.isMaxedOut) {
-      return;
+      this.fermerPopup();
     }
     if (this.isNetworkConnected && !this.isOptimizing) {
       return;
@@ -158,9 +158,5 @@ schools: School[] = [
   // Appelée par le bouton "optimiser"
   startOptimization() {
     this.isOptimizing = true;
-    this.planetState.increment(1);
-    setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 2000);
   }
 }

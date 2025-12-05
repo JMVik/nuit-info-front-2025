@@ -66,11 +66,11 @@ export class PlaneteComponent implements OnInit, OnDestroy {
       // else if (state < 20) this.currentSpriteIndex = 1;
       // etc.
       switch (state) {
-        case 0: this.currentSpriteIndex = 0; break;
-        case 1: this.currentSpriteIndex = 1; break;
-        case 2: this.currentSpriteIndex = 2; break;
-        case 3: this.currentSpriteIndex = 3; break;
-        default: this.currentSpriteIndex = 0; break;
+        case 0: this.currentSpriteIndex = 2; break;
+        case 1: this.currentSpriteIndex = 3; break;
+        case 2: this.currentSpriteIndex = 1; break;
+        case 3: this.currentSpriteIndex = 0; break;
+        default: this.currentSpriteIndex = 2; break;
       }
     });
 
