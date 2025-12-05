@@ -122,4 +122,8 @@ export class PlaneteComponent implements OnInit, OnDestroy {
   closePopup() {
     this.showPopup = false;
   }
+
+  reset() {
+    this.planetState.reset();
+  }
 }
